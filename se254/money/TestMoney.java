@@ -22,11 +22,10 @@ public class TestMoney extends TestCase {
     public void testZeroConstructor() {
     	money = new Money();
     	assertSame("$0.00", money.toString());
-		System.out.println(money.toString());
     }
 
     public void testConstructorWithZero() {
-    	money = new Money();
+    	money = new Money(0,0);
     	assertEquals("$0.00", money.toString());
     }
 
