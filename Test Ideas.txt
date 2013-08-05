@@ -43,3 +43,4 @@ Methods:
 .		Zero
 .		No money
 .		Check rounding
+		Negative Money times negative amount
