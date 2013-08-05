@@ -10,8 +10,10 @@ package se254.money;
 import junit.framework.TestCase;
 
 public class TestMoney extends TestCase {
+    //Empty as Moneys are immutable so not much point setting any up before running each test.
     public void setUp() {
     }
+
 
     public void tearDown() {
     }
@@ -62,19 +64,13 @@ public class TestMoney extends TestCase {
     }
     
             //CONSTRUCTOR B:
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with an amount of $0.00.
-    public void testConstructorBWithZero() {
-        Money money = new Money(0,0,0);
-        assertSame("$0.00", money.toString());
-    }
-
     //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a negative amount of hundredths.
     public void testConstructorBWithNegativeAmounts() {
         Money money = new Money(0,0,-25);
         assertSame("-$0.0025", money.toString());
     }
 
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a positive amount of dollars, cents, and both.
+    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a positive amount of hundredths.
     public void testConstructorBWithPositiveAmounts() {
         Money money = new Money(0,0,25);
         assertSame("$0.0025", money.toString());
@@ -86,15 +82,34 @@ public class TestMoney extends TestCase {
     }
 
             //METHODS:
-    //Ensure that the Add() method correctly adds the values of the two Moneys.
+    //Ensure that the Add() method correctly adds two positive Moneys.
     public void testAddPositive() {
-        Money money1 = new Money();
-        Money money2 = new Money();
+        Money money1 = new Money(1,50);
+        Money money2 = new Money(0,30);
         Money money3 = money1.add(money2);
-        assertSame(, money3.toString());
+        assertSame("$1.80", money3.toString());
     }
 
+    //Ensure that the Add() method correctly adds two negative Moneys, and one negative and one positive Money.
+    public void testAddPositive() {
+        Money money1 = new Money(-);
+        Money money2 = new Money(-);
+        Money money3 = new Money();
+        Money money4 = money1.add(money2);
+        Money money5 = money3.add(money2);
+        assertSame(, money4.toString());
+        assertSame(, money5.toString());
+    }
 
+    //Ensure that the Add() method correctly adds zero to a Money.
+    public void testAddPositive() {
+        Money money1 = new Money(1,50);
+        Money money2 = new Money();
+        Money money3 = money1.add(money2);
+        assertSame("$1.50", money3.toString());
+    }
+
+    //Ensure that a comparison to a larger Money returns .
 
 
     /**
