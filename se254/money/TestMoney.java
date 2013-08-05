@@ -21,21 +21,14 @@ public class TestMoney extends TestCase {
     //Ensure that the default constructor, Money(), creates a Money with an amount of $0.00.
     public void testZeroConstructor() {
         Money money = new Money();
-        assertSame("$0.00", money.toString());
-    }
-
-    //Ensure that Money objects cannot be changed once created.
-    public void testImmutability() {
-        Money money = new Money(3,15);
-        money = new Money(3,14);
-        assertSame("$3.15", money.toString());
+        assertEquals("$0.00", money.toString());
     }
 
             //CONSTRUCTOR A:
     //Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with an amount of $0.00.
     public void testConstructorAWithZero() {
         Money money = new Money(0,0);
-        assertSame("$0.00", money.toString());
+        assertEquals("$0.00", money.toString());
     }
 
     //Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with a negative amount of dollars, cents, and both.
@@ -43,9 +36,9 @@ public class TestMoney extends TestCase {
         Money money1 = new Money(-3,0);  
         Money money2 = new Money(0,-15);   
         Money money3 = new Money(-3,15);
-        assertSame("-$3.00", money1.toString());    
-        assertSame("-$0.15", money2.toString());   
-        assertSame("-$3.15", money3.toString());       
+        assertEquals("-$3.00", money1.toString());    
+        assertEquals("-$0.15", money2.toString());   
+        assertEquals("-$3.15", money3.toString());       
     }
 
     //Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with a positive amount of dollars, cents, and both.
@@ -53,32 +46,55 @@ public class TestMoney extends TestCase {
         Money money1 = new Money(3,0);
         Money money2 = new Money(0,15);
         Money money3 = new Money(3,15);
-        assertSame("$3.00", money1.toString());
-        assertSame("$0.15", money2.toString());
-        assertSame("$3.15", money3.toString());
+        assertEquals("$3.00", money1.toString());
+        assertEquals("$0.15", money2.toString());
+        assertEquals("$3.15", money3.toString());
     }
 
-    //Ensure that the constructor Money(int dollars, int cents) correctly handles an input of >99 cents.
+    //Ensure that an IllegalArgumentException is thrown when given an input of >99 cents.
     public void testConstructorAWithMoreThan99Cents() {
-        Money money = new Money(0,150);
+        try {
+        	Money money = new Money(0,150);
+        } catch (IllegalArgumentException e) {
+        }
     }
     
+    //Ensure that an IllegalArgumentException is thrown when given two negative inputs.
+    public void testMoreThanOneNegativeInput() {
+        try {
+        	Money money = new Money(-1,-10);
+    	} catch (IllegalArgumentException e) {
+    	}
+    }
+
             //CONSTRUCTOR B:
+    		//Assume that constructor B will not fail any tests that constructor A passes, so not copying same tests.
     //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a negative amount of hundredths.
-    public void testConstructorBWithNegativeAmounts() {
+    public void testConstructorBWithNegativeHundredths() {
         Money money = new Money(0,0,-25);
-        assertSame("-$0.0025", money.toString());
+        assertEquals("-$0.0025", money.toString());
     }
 
     //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a positive amount of hundredths.
-    public void testConstructorBWithPositiveAmounts() {
+    public void testConstructorBWithPositiveHundredths() {
         Money money = new Money(0,0,25);
-        assertSame("$0.0025", money.toString());
+        assertEquals("$0.0025", money.toString());
     }
 
     //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles an input of >99 cents.
     public void testConstructorBWithMoreThan99Hundredths() {
-        Money money = new Money(0,0,150);
+        try {
+        	Money money = new Money(0,0,150);
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    //Ensure that an IllegalArgumentException is thrown when given a negative input that is not the most significant input.
+    public void testMoreNegativeInputInWrongPlace() {
+        try {
+        	Money money = new Money(1,-10,10);
+    	} catch (IllegalArgumentException e) {
+    	}
     }
 
             //METHODS:
@@ -87,29 +103,101 @@ public class TestMoney extends TestCase {
         Money money1 = new Money(1,50);
         Money money2 = new Money(0,30);
         Money money3 = money1.add(money2);
-        assertSame("$1.80", money3.toString());
+        assertEquals("$1.80", money3.toString());
     }
 
     //Ensure that the Add() method correctly adds two negative Moneys, and one negative and one positive Money.
-    public void testAddPositive() {
-        Money money1 = new Money(-);
-        Money money2 = new Money(-);
-        Money money3 = new Money();
+    public void testAddNegative() {
+        Money money1 = new Money(-1,0);
+        Money money2 = new Money(0,-50);
+        Money money3 = new Money(3,25);
         Money money4 = money1.add(money2);
         Money money5 = money3.add(money2);
-        assertSame(, money4.toString());
-        assertSame(, money5.toString());
+        assertEquals("-$1.50", money4.toString());
+        assertEquals("$2.75", money5.toString());
     }
 
     //Ensure that the Add() method correctly adds zero to a Money.
-    public void testAddPositive() {
+    public void testAddZero() {
         Money money1 = new Money(1,50);
         Money money2 = new Money();
         Money money3 = money1.add(money2);
-        assertSame("$1.50", money3.toString());
+        assertEquals("$1.50", money3.toString());
     }
 
-    //Ensure that a comparison to a larger Money returns .
+    //Ensure that the Add() method correctly throws an IllegalArgumentException when given a null input.
+    public void testAddNull() {
+        Money money1 = new Money(1,50);
+        Money money2 = null;
+        try {
+        	Money money3 = money1.add(money2);
+    	} catch (IllegalArgumentException e) {
+    	}
+    }
+
+    //Ensure that a comparison to a larger Money returns -1.
+    public void testCompareToGreater() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money(2,0);
+    	assertEquals(-1, money1.compareTo(money2));
+    }
+
+    //Ensure that a comparison to a smaller Money returns 1.
+    public void testCompareToSmaller() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money(0,50);
+    	assertEquals(1, money1.compareTo(money2));
+    }
+
+    //Ensure that a comparison to a negative Money returns 1.
+    public void testCompareToNegative() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money(-5,0);
+    	assertEquals(1, money1.compareTo(money2));
+    }
+
+    //Ensure that a comparison to zero returns 1.
+    public void testCompareToZero() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money();
+    	assertEquals(1, money1.compareTo(money2));
+    }
+
+    //Ensure that a comparison to an equal Money returns 0.
+    public void testCompareToSame() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money(1,0);
+    	assertEquals(0, money1.compareTo(money2));
+    }
+
+    //Ensure that an equality check with an equivalent Money returns True.
+    public void testEqualsEquivalent() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money(1,0);
+    	assertTrue(money1.equals(money2));
+    }
+
+    //Ensure that an equality check with a non-equivalent Money returns False.
+    public void testEqualsNonEquivalent() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = new Money(2,0);
+    	assertFalse(money1.equals(money2));
+    }
+
+    //Ensure that an equality check with a null Money returns False.
+    public void testEqualsNull() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = null;
+    	assertFalse(money1.equals(money2));
+    }
+
+
+
+
+
+
+
+
 
 
     /**

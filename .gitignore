@@ -1,6 +1,5 @@
 *.jar
 *.class
-*.txt
 *.html
 .DS_Store
 .DS_Store?

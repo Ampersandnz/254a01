@@ -1,7 +1,7 @@
 #!/bin/bash
 
-rm se254/money/*.class 	#remove the previous compiled classes
-rm outputs/*.txt	#remove all previous log files
+rm -f se254/money/*.class 	#remove the previous compiled classes
+rm -f outputs/*.txt	#remove all previous log files
 javac -cp "./junit.jar:./se254/badA.jar" ./se254/money/TestMoney.java				#compiled TestMoney.java using badA.jar
 java -cp ".:./junit.jar:./se254/badA.jar" se254.money.TestMoney >./outputs/badA.txt		#run the compiled TestMoney class and write the output into file badA.txt
 javac -cp "./junit.jar:./se254/badB.jar" ./se254/money/TestMoney.java				#compiled TestMoney.java using badB.jar
