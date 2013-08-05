@@ -14,7 +14,6 @@ public class TestMoney extends TestCase {
     public void setUp() {
     }
 
-
     public void tearDown() {
     }
 
@@ -191,14 +190,56 @@ public class TestMoney extends TestCase {
     	assertFalse(money1.equals(money2));
     }
 
+    //Ensure that a Money can be correctly multiplied by a positive number.
+    public void testMultiplyPositive() {
+        Money money1 = new Money(10,50);
+        Money money2 = money1.multiply(2.5);
+        assertEquals("$26.25", money2.toString());
+    }
 
+    //Ensure that a Money can be correctly multiplied by a positive decimal.
+    public void testMultiplyPositiveDecimal() {
+        Money money1 = new Money(10,50);
+        Money money2 = money1.multiply(0.5);
+        assertEquals("$5.25", money2.toString());
+    }
 
+    //Ensure that a Money can be correctly multiplied by a negative number.
+    public void testMultiplyNegative() {
+        Money money1 = new Money(10,50);
+        Money money2 = money1.multiply(-2.5);
+        assertEquals("-$26.25", money2.toString());
+    }
 
+    //Ensure that a Money can be correctly multiplied by a negative decimal.
+    public void testMultiplyNegativeDecimal() {
+        Money money1 = new Money(10,50);
+        Money money2 = money1.multiply(-0.5);
+        assertEquals("-$5.25", money2.toString());
+    }
 
+    //Ensure that a Money can be correctly multiplied by zero.
+    public void testMultiplyZero() {
+        Money money1 = new Money(10,50);
+        Money money2 = money1.multiply(0);
+        assertEquals("-$0.00", money2.toString());
+    }
 
+    //Ensure that a Money amount of zero can be correctly multiplied.
+    public void testMultiplyNoMoney() {
+        Money money1 = new Money(0,0,0);
+        Money money2 = money1.multiply(5);
+        assertEquals("$0.00", money2.toString());
+    }
 
-
-
+    //Ensure that a Money amount of zero can be correctly multiplied without rounding errors.
+    public void testMultiplyRoundingErrorCheck() {
+        Money money1 = new Money(10,50,10);
+        Money money2 = money1.multiply(2.234736);
+        Money money3 = money1.multiply(5.234324);
+        assertEquals("$23.467", money2.toString());
+        assertEquals("$54.9656", money3.toString());
+    }
 
     /**
      * DO NOT DELETE THIS

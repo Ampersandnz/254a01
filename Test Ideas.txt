@@ -37,14 +37,9 @@ Methods:
 .		Null
 		
 	Money	multiply(double factor)
-		Small
-		Large
-		Small decimal (0<x<1)
-		Large decimal (0<x<1)
-		Negative (Number and decimal)
-		Zero
-		Cents only
-		Hundredths only
-		No money
-		Multiple decimal places
-		Check rounding
+.		Positive
+.		Decimal (0<x<1)
+.		Negative (Number and decimal)
+.		Zero
+.		No money
+.		Check rounding
