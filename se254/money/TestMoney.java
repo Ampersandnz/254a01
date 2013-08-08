@@ -104,7 +104,7 @@ public class TestMoney extends TestCase {
 
         public void testConstructorBWithPossibleTrailingZero() {
         Money money = new Money(50,50);
-        assertEquals("$50.50", money1.toString());
+        assertEquals("$50.50", money.toString());
     }
 
 
@@ -245,33 +245,73 @@ public class TestMoney extends TestCase {
         Money money2 = new Money(1,0);
         Money money3 = new Money(0,0,20);
         Money money4 = new Money(0,30);
-        Money money5 = money1.add(money2);
-        Money money6 = money1.add(money3);
-        Money money7 = money1.add(money4);
-        assertEquals("$2.502", money5.toString());
-        assertEquals("$1.504", money6.toString());
-        assertEquals("$1.802", money7.toString());
+        Money money5 = new Money(1,30,0);
+        Money money6 = new Money(1,0,20);
+        Money money7 = new Money(0,30,20);
+        Money money8 = money1.add(money2);
+        Money money9 = money1.add(money3);
+        Money money10 = money1.add(money4);
+        Money money11 = money1.add(money5);
+        Money money12 = money1.add(money6);
+        Money money13 = money1.add(money7);
+        assertEquals("$2.502", money8.toString());
+        assertEquals("$1.504", money9.toString());
+        assertEquals("$1.802", money10.toString());
+        assertEquals("$2.802", money11.toString());
+        assertEquals("$2.504", money12.toString());
+        assertEquals("$1.804", money13.toString());
     }
 
-    //Ensure that the Add() method correctly adds two negative Moneys, and one negative and one positive Money.
-    public void testAddNegative() {
+    //Ensure that the Add() method correctly adds two negative Moneys.
+    public void testAddNegativeToNegative() {
         Money money1 = new Money(-1,50,20);
-        Money money2 = new Money(1,50,20);
-        Money money3 = new Money(-1,0);
-        Money money4 = new Money(-0,0,20);
-        Money money5 = new Money(-0,30);
-        Money money6 = money1.add(money3);
-        Money money7 = money1.add(money4);
-        Money money8 = money1.add(money5);
-        Money money9 = money2.add(money3);
-        Money money10 = money2.add(money4);
-        Money money11 = money2.add(money5);
-        assertEquals("-$2.502", money6.toString());
-        assertEquals("-$1.504", money7.toString());
-        assertEquals("-$1.802", money8.toString());
-        assertEquals("$0.502", money9.toString());
-        assertEquals("$1.50", money10.toString());
-        assertEquals("$1.202", money11.toString());
+        Money money2 = new Money(-1,0);
+        Money money3 = new Money(0,0,-20);
+        Money money4 = new Money(0,-30);
+        Money money5 = new Money(-1,30);
+        Money money6 = new Money(-1,0,20);
+        Money money7 = new Money(0,-30,20);
+        Money money8 = money1.add(money2);
+        Money money9 = money1.add(money3);
+        Money money10 = money1.add(money4);
+        Money money11 = money1.add(money5);
+        Money money12 = money1.add(money6);
+        Money money13 = money1.add(money7);
+        Money money14 = money2.add(money2);
+        Money money15 = money3.add(money3);
+        Money money16 = money4.add(money4);
+        assertEquals("-$2.502", money8.toString());
+        assertEquals("-$1.504", money9.toString());
+        assertEquals("-$1.802", money10.toString());
+        assertEquals("-$2.802", money11.toString());
+        assertEquals("-$2.504", money12.toString());
+        assertEquals("-$1.804", money13.toString());
+        assertEquals("-$2.00", money14.toString());
+        assertEquals("-$0.004", money15.toString());
+        assertEquals("-$0.60", money16.toString());
+    }
+
+        //Ensure that the Add() method correctly adds one negative and one positive Money.
+    public void testAddNegativeToPositive() {
+        Money money1 = new Money(1,10,10);
+        Money money2 = new Money(-2,0);
+        Money money3 = new Money(0,0,-20);
+        Money money4 = new Money(0,-30);
+        Money money5 = new Money(-2,30);
+        Money money6 = new Money(-2,0,20);
+        Money money7 = new Money(0,-30,20);
+        Money money8 = money1.add(money2);
+        Money money9 = money1.add(money3);
+        Money money10 = money1.add(money4);
+        Money money11 = money1.add(money5);
+        Money money12 = money1.add(money6);
+        Money money13 = money1.add(money7);
+        assertEquals("-$0.899", money8.toString());
+        assertEquals("$1.099", money9.toString());
+        assertEquals("$0.801", money10.toString());
+        assertEquals("-$1.199", money11.toString());
+        assertEquals("-$0.901", money12.toString());
+        assertEquals("$0.799", money13.toString());
     }
 
     //Ensure that the Add() method correctly adds zero to a Money.
@@ -378,6 +418,18 @@ public class TestMoney extends TestCase {
         assertEquals(0, money1.compareTo(money2));
     }    
 
+    //Ensure that a comparison to a null Money throws an exception
+    public void testCompareToNull() {
+    	Money money1 = new Money(1,0);
+    	Money money2 = null;
+    	try {
+        	money1.compareTo(money2);
+        } catch (IllegalArgumentException e) {
+        	return;
+        }
+        fail();
+    }  
+
 
 
 
@@ -394,7 +446,7 @@ public class TestMoney extends TestCase {
     public void testEqualsNonEquivalent() {
     	Money money1 = new Money(1,10,10);
         Money money2 = new Money(-1,10,10);
-        Money money2 = new Money(2,10,10);
+        Money money3 = new Money(2,10,10);
         Money money4 = new Money(1,20,10);
     	Money money5 = new Money(1,10,20);
         assertFalse(money1.equals(money2));
@@ -446,7 +498,7 @@ public class TestMoney extends TestCase {
         assertEquals("$26.25", money9.toString());
         assertEquals("$25.0125", money10.toString());
         assertEquals("$1.2625", money11.toString());
-        assertEquals("$25", money12.toString());
+        assertEquals("$25.00", money12.toString());
         assertEquals("$1.25", money13.toString());
         assertEquals("$0.0125", money14.toString());
     }
@@ -471,7 +523,7 @@ public class TestMoney extends TestCase {
         assertEquals("$5.25", money9.toString());
         assertEquals("$5.0025", money10.toString());
         assertEquals("$0.2525", money11.toString());
-        assertEquals("$5", money12.toString());
+        assertEquals("$5.00", money12.toString());
         assertEquals("$0.25", money13.toString());
         assertEquals("$0.0025", money14.toString());
     }
@@ -496,7 +548,7 @@ public class TestMoney extends TestCase {
         assertEquals("-$26.25", money9.toString());
         assertEquals("-$25.0125", money10.toString());
         assertEquals("-$1.2625", money11.toString());
-        assertEquals("-$25", money12.toString());
+        assertEquals("-$25.00", money12.toString());
         assertEquals("-$1.25", money13.toString());
         assertEquals("-$0.0125", money14.toString());
     }
@@ -521,7 +573,7 @@ public class TestMoney extends TestCase {
         assertEquals("-$5.25", money9.toString());
         assertEquals("-$5.0025", money10.toString());
         assertEquals("-$0.2525", money11.toString());
-        assertEquals("-$5", money12.toString());
+        assertEquals("-$5.00", money12.toString());
         assertEquals("-$0.25", money13.toString());
         assertEquals("-$0.0025", money14.toString());
     }
@@ -532,14 +584,23 @@ public class TestMoney extends TestCase {
         Money money2 = new Money(10,0);
         Money money3 = new Money(0,50);
         Money money4 = new Money(0,0,50);
-        Money money5 = money1.multiply(0);
-        Money money6 = money2.multiply(0);
-        Money money7 = money3.multiply(0);
-        Money money8 = money4.multiply(0);
-        assertEquals("$0.00", money5.toString());
-        assertEquals("$0.00", money6.toString());
-        assertEquals("$0.00", money7.toString());
+        Money money5 = new Money(10,0,50);
+        Money money6 = new Money(0,50,50);
+        Money money7 = new Money(10,50);
+        Money money8 = money1.multiply(0);
+        Money money9 = money2.multiply(0);
+        Money money10 = money3.multiply(0);
+        Money money11 = money4.multiply(0);
+        Money money12 = money4.multiply(0);
+        Money money13 = money4.multiply(0);
+        Money money14 = money4.multiply(0);
         assertEquals("$0.00", money8.toString());
+        assertEquals("$0.00", money9.toString());
+        assertEquals("$0.00", money10.toString());
+        assertEquals("$0.00", money11.toString());
+        assertEquals("$0.00", money12.toString());
+        assertEquals("$0.00", money13.toString());
+        assertEquals("$0.00", money14.toString());
     }
 
     //Ensure that a Money amount of zero can be correctly multiplied.
@@ -552,12 +613,19 @@ public class TestMoney extends TestCase {
     //Ensure that a Money amounts are correctly rounded to the nearest hundredth.
     public void testMultiplyRoundingErrorCheck() {
         Money money1 = new Money(10,0,1);
-        Money money2 = money1.multiply(1.5);
-        Money money3 = money1.multiply(1.4);
-        Money money4 = money1.multiply(1.6);
-        assertEquals("$15.0002", money2.toString());
-        assertEquals("$14.0001", money3.toString());
-        assertEquals("$16.0002", money4.toString());
+        Money money2 = new Money(-10,0,1);
+        Money money3 = money1.multiply(1.5);
+        Money money4 = money1.multiply(1.4);
+        Money money5 = money1.multiply(1.6);
+        Money money6 = money1.multiply(-1.5);
+        Money money7 = money1.multiply(-1.4);
+        Money money8 = money1.multiply(-1.6);
+        assertEquals("$15.0002", money3.toString());
+        assertEquals("$14.0001", money4.toString());
+        assertEquals("$16.0002", money5.toString());
+        assertEquals("-$15.0002", money6.toString());
+        assertEquals("-$14.0001", money7.toString());
+        assertEquals("-$16.0002", money8.toString());
     }
 
     //Ensure that a negative Money amount can be multiplied correctly.
@@ -577,14 +645,18 @@ public class TestMoney extends TestCase {
     public void testMultiplyByLargeAmount() {
         Money money1 = new Money(1,10,10);
         Money money2 = money1.multiply(100000);
+        Money money3 = money1.multiply(-100000);
         assertEquals("$110100.00", money2.toString());
+        assertEquals("-$110100.00", money3.toString());
     }
 
     //Ensure that a multiplication by a very small number does not introduce rounding errors.
     public void testMultiplyBySmallAmount() {
         Money money1 = new Money(10000,0,0);
         Money money2 = money1.multiply(0.0000001);
+        Money money3 = money1.multiply(-0.0000001);
         assertEquals("$0.001", money2.toString());
+        assertEquals("-$0.001", money3.toString());
     }
 
     /**
