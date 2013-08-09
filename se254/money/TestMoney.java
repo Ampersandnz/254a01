@@ -10,10 +10,15 @@ package se254.money;
 import junit.framework.TestCase;
 
 public class TestMoney extends TestCase {
-    //Empty as Moneys are immutable so not much point setting any up before running each test. Less resource intensive to only initialise the Moneys that will be needed.
+    /**
+    *Empty as Moneys are immutable so not much point setting any up before running each test. Less resource intensive to only initialise the Moneys that will be needed.
+    */
     public void setUp() {
     }
 
+    /**
+    *Empty as nothing to clear up that is not automatically done when each method finishes.
+    */
     public void tearDown() {
     }
 
@@ -21,7 +26,9 @@ public class TestMoney extends TestCase {
 
             //Constructors:
         //Constructor A
-    //Ensure that the default constructor, Money(), creates a Money with an amount of $0.00.
+    /**
+    *Ensure that the default constructor, Money(), creates a Money with an amount of $0.00.
+    */
     public void testConstructorA() {
         Money money = new Money();
         assertEquals("$0.00", money.toString());
@@ -32,19 +39,25 @@ public class TestMoney extends TestCase {
 
 
             //Constructor B
-    //Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with an amount of $0.00.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with an amount of $0.00.
+    */
     public void testConstructorBWithZero() {
         Money money = new Money(0,0);
         assertEquals("$0.00", money.toString());
     }
 
-    //Ensure that the constructor Money(int dollars, int cents) correctly displays a Money with an amount in cents only $0.00.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents) correctly displays a Money with an amount in cents only $0.00.
+    */
     public void testConstructorBWithCentsOnly() {
         Money money = new Money(0,30);
         assertEquals("$0.30", money.toString());
     }
 
-    //Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with a negative amount of dollars, cents, and both.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with a negative amount of dollars, cents, and both.
+    */
     public void testConstructorBWithNegativeAmounts() {
         Money money1 = new Money(-3,0);  
         Money money2 = new Money(0,-15);   
@@ -54,7 +67,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$3.15", money3.toString());       
     }
 
-    //Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with a positive amount of dollars, cents, and both.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents) correctly creates a Money with a positive amount of dollars, cents, and both.
+    */
     public void testConstructorBWithPositiveAmounts() {
         Money money1 = new Money(3,0);
         Money money2 = new Money(0,15);
@@ -64,7 +79,9 @@ public class TestMoney extends TestCase {
         assertEquals("$3.15", money3.toString());
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given an input of >99 cents.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given an input of >99 cents.
+    */
     public void testConstructorBWithMoreThan99Cents() {
         try {
         	Money money = new Money(0,150);
@@ -74,7 +91,9 @@ public class TestMoney extends TestCase {
         fail();
     }
     
-    //Ensure that an IllegalArgumentException is thrown when given an input -0.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given an input -0.
+    */
     public void testConstructorBWithNegativeZeroInput() {
         Money money1 = new Money(-0,0);
         Money money2 = new Money(0,-0);
@@ -82,7 +101,9 @@ public class TestMoney extends TestCase {
         assertEquals("$0.00", money2.toString());
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given two negative inputs.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given two negative inputs.
+    */
     public void testConstructorBWithMoreThanOneNegativeInput() {
         try {
         	Money money = new Money(-1,-10);
@@ -92,7 +113,9 @@ public class TestMoney extends TestCase {
         fail();
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given a negative input that is not the most significant input.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given a negative input that is not the most significant input.
+    */
     public void testConstructorBWithNegativeInputInWrongPlace() {
         try {
             Money money = new Money(1,-10);
@@ -112,7 +135,9 @@ public class TestMoney extends TestCase {
 
 
             //Constructor C
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles various positive inputs.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles various positive inputs.
+    */
     public void testConstructorCWithPositiveAmounts() {
         Money money0 = new Money(1,10,10);  
         Money money1 = new Money(1,0,10);  
@@ -130,7 +155,9 @@ public class TestMoney extends TestCase {
         assertEquals("$0.001", money6.toString());       
     }
 
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles various negative inputs.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles various negative inputs.
+    */
         public void testConstructorCWithNegativeAmounts() {
         Money money0 = new Money(-1,10,10);  
         Money money1 = new Money(-1,0,10);  
@@ -148,19 +175,25 @@ public class TestMoney extends TestCase {
         assertEquals("-$0.001", money6.toString());
     }
 
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a negative amount of hundredths.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a negative amount of hundredths.
+    */
     public void testConstructorCWithNegativeHundredths() {
         Money money = new Money(0,0,-25);
         assertEquals("-$0.0025", money.toString());
     }
 
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a positive amount of hundredths.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly creates a Money with a positive amount of hundredths.
+    */
     public void testConstructorCWithPositiveHundredths() {
         Money money = new Money(0,0,25);
         assertEquals("$0.0025", money.toString());
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given an input of >99 cents.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given an input of >99 cents.
+    */
     public void testConstructorCWithMoreThan99Cents() {
         try {
             Money money = new Money(0,150,50);
@@ -170,7 +203,9 @@ public class TestMoney extends TestCase {
         fail();
     }
 
-    //Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles an input of >99 cents.
+    /**
+    *Ensure that the constructor Money(int dollars, int cents, int hundredths) correctly handles an input of >99 cents.
+    */
     public void testConstructorCWithMoreThan99Hundredths() {
         try {
         	Money money = new Money(0,0,150);
@@ -180,7 +215,9 @@ public class TestMoney extends TestCase {
         fail();
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given a negative input that is not the most significant input.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given a negative input that is not the most significant input.
+    */
     public void testConstructorCWithNegativeInputInWrongPlace() {
         try {
             Money money = new Money(1,-10,0);
@@ -198,7 +235,9 @@ public class TestMoney extends TestCase {
         fail();
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given two negative inputs.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given two negative inputs.
+    */
     public void testConstructorCWithMoreThanOneNegativeInput() {
         try {
             Money money1 = new Money(-1,-10,10);
@@ -216,7 +255,9 @@ public class TestMoney extends TestCase {
         fail();
     }
 
-    //Ensure that an IllegalArgumentException is thrown when given an input -0.
+    /**
+    *Ensure that an IllegalArgumentException is thrown when given an input -0.
+    */
     public void testConstructorCWithNegativeZeroInput() {
         Money money1 = new Money(-0,0,0);
         Money money2 = new Money(0,-0,0);
@@ -239,7 +280,9 @@ public class TestMoney extends TestCase {
 
             //METHODS:
         //Add
-    //Ensure that the Add() method correctly adds two positive Moneys.
+    /**
+    *Ensure that the Add() method correctly adds two positive Moneys.
+    */
     public void testAddPositive() {
         Money money1 = new Money(1,50,20);
         Money money2 = new Money(1,0);
@@ -262,7 +305,9 @@ public class TestMoney extends TestCase {
         assertEquals("$1.804", money13.toString());
     }
 
-    //Ensure that the Add() method correctly adds two negative Moneys.
+    /**
+    *Ensure that the Add() method correctly adds two negative Moneys.
+    */
     public void testAddNegativeToNegative() {
         Money money1 = new Money(-1,50,20);
         Money money2 = new Money(-1,0);
@@ -291,7 +336,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$0.60", money16.toString());
     }
 
-        //Ensure that the Add() method correctly adds one negative and one positive Money.
+    /**
+    *Ensure that the Add() method correctly adds one negative and one positive Money.
+    */
     public void testAddNegativeToPositive() {
         Money money1 = new Money(1,10,10);
         Money money2 = new Money(-2,0);
@@ -314,7 +361,9 @@ public class TestMoney extends TestCase {
         assertEquals("$0.799", money13.toString());
     }
 
-    //Ensure that the Add() method correctly adds zero to a Money.
+    /**
+    *Ensure that the Add() method correctly adds zero to a Money.
+    */
     public void testAddZero() {
         Money money1 = new Money(1,50);
         Money money2 = new Money();
@@ -324,7 +373,9 @@ public class TestMoney extends TestCase {
         assertEquals("$1.50", money4.toString());
     }
 
-    //Ensure that the Add() method correctly throws an IllegalArgumentException when given a null input.
+    /**
+    *Ensure that the Add() method correctly throws an IllegalArgumentException when given a null input.
+    */
     public void testAddNull() {
         Money money1 = new Money(1,50);
         Money money2 = null;
@@ -336,7 +387,9 @@ public class TestMoney extends TestCase {
         fail();
     }
 
-    //Ensure that the Add() method correctly passes up carry digits.
+    /**
+    *Ensure that the Add() method correctly passes up carry digits.
+    */
     public void testAddCarry() {
         Money money1 = new Money(1,80,90);
         Money money2 = new Money(0,19,10);
@@ -355,7 +408,9 @@ public class TestMoney extends TestCase {
 
 
         //CompareTo
-    //Ensure that a comparison to a larger Money returns -1.
+    /**
+    *Ensure that a comparison to a larger Money returns -1.
+    */
     public void testCompareToGreater() {
         Money money1 = new Money(1,0);
         Money money2 = new Money(2,0);
@@ -371,7 +426,9 @@ public class TestMoney extends TestCase {
         assertEquals(-1, money7.compareTo(money8));
     }
 
-    //Ensure that a comparison to a smaller Money returns 1.
+    /**
+    *Ensure that a comparison to a smaller Money returns 1.
+    */
     public void testCompareToSmaller() {
         Money money1 = new Money(1,0);
         Money money2 = new Money(2,0);
@@ -387,7 +444,9 @@ public class TestMoney extends TestCase {
         assertEquals(1, money8.compareTo(money7));
     }
 
-    //Ensure that a comparison to a negative Money returns correctly.
+    /**
+    *Ensure that a comparison to a negative Money returns correctly.
+    */
     public void testCompareToNegative() {
         Money money1 = new Money(-1,0);
         Money money2 = new Money(-2,0);
@@ -403,7 +462,9 @@ public class TestMoney extends TestCase {
         assertEquals(-1, money6.compareTo(money5));
     }
 
-    //Ensure that a comparison to zero returns 1.
+    /**
+    *Ensure that a comparison to zero returns 1.
+    */
     public void testCompareToZero() {
     	Money money1 = new Money(1,0);
     	Money money2 = new Money();
@@ -411,14 +472,18 @@ public class TestMoney extends TestCase {
     	assertEquals(-1, money2.compareTo(money1));
     }
 
-    //Ensure that a comparison to an equal Money returns 0.
+    /**
+    *Ensure that a comparison to an equal Money returns 0.
+    */
     public void testCompareToSame() {
     	Money money1 = new Money(1,0);
     	Money money2 = new Money(1,0);
         assertEquals(0, money1.compareTo(money2));
     }    
 
-    //Ensure that a comparison to a null Money throws an exception
+    /**
+    *Ensure that a comparison to a null Money throws an exception
+    */
     public void testCompareToNull() {
     	Money money1 = new Money(1,0);
     	Money money2 = null;
@@ -435,14 +500,18 @@ public class TestMoney extends TestCase {
 
 
         //Equals
-    //Ensure that an equality check with an equivalent Money returns True.
+    /**
+    *Ensure that an equality check with an equivalent Money returns True.
+    */
     public void testEqualsEquivalent() {
     	Money money1 = new Money(1,10,10);
     	Money money2 = new Money(1,10,10);
     	assertTrue(money1.equals(money2));
     }
 
-    //Ensure that an equality check with a non-equivalent Money returns False.
+    /**
+    *Ensure that an equality check with a non-equivalent Money returns False.
+    */
     public void testEqualsNonEquivalent() {
     	Money money1 = new Money(1,10,10);
         Money money2 = new Money(-1,10,10);
@@ -455,7 +524,9 @@ public class TestMoney extends TestCase {
     	assertFalse(money1.equals(money5));
     }
 
-    //Ensure that each field is individually checked for equivalence.
+    /**
+    *Ensure that each field is individually checked for equivalence.
+    */
     public void testEqualsSeparately() {
         Money money0 = new Money(1,10,10);
         Money money1 = new Money(1,10,0);
@@ -466,7 +537,9 @@ public class TestMoney extends TestCase {
         assertFalse(money0.equals(money3));
     }
 
-    //Ensure that an equality check with a null Money returns False.
+    /**
+    *Ensure that an equality check with a null Money returns False.
+    */
     public void testEqualsNull() {
     	Money money1 = new Money(1,10,10);
     	Money money2 = null;
@@ -478,7 +551,9 @@ public class TestMoney extends TestCase {
 
 
         //Multiply
-    //Ensure that a Money can be correctly multiplied by a positive number.
+    /**
+    *Ensure that a Money can be correctly multiplied by a positive number.
+    */
     public void testMultiplyPositive() {
         Money money1 = new Money(10,50,50);
         Money money2 = new Money(10,50);
@@ -503,7 +578,9 @@ public class TestMoney extends TestCase {
         assertEquals("$0.0125", money14.toString());
     }
 
-    //Ensure that a Money can be correctly multiplied by a positive decimal.
+    /**
+    *Ensure that a Money can be correctly multiplied by a positive decimal.
+    */
     public void testMultiplyPositiveDecimal() {
         Money money1 = new Money(10,50,50);
         Money money2 = new Money(10,50);
@@ -528,7 +605,9 @@ public class TestMoney extends TestCase {
         assertEquals("$0.0025", money14.toString());
     }
 
-    //Ensure that a Money can be correctly multiplied by a negative number.
+    /**
+    *Ensure that a Money can be correctly multiplied by a negative number.
+    */
     public void testMultiplyNegative() {
         Money money1 = new Money(10,50,50);
         Money money2 = new Money(10,50);
@@ -553,7 +632,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$0.0125", money14.toString());
     }
 
-    //Ensure that a Money can be correctly multiplied by a negative decimal.
+    /**
+    *Ensure that a Money can be correctly multiplied by a negative decimal.
+    */
     public void testMultiplyNegativeDecimal() {
         Money money1 = new Money(10,50,50);
         Money money2 = new Money(10,50);
@@ -578,7 +659,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$0.0025", money14.toString());
     }
 
-    //Ensure that a Money can be correctly multiplied by zero.
+    /**
+    *Ensure that a Money can be correctly multiplied by zero.
+    */
     public void testMultiplyZero() {
         Money money1 = new Money(10,50,50);
         Money money2 = new Money(10,0);
@@ -603,14 +686,18 @@ public class TestMoney extends TestCase {
         assertEquals("$0.00", money14.toString());
     }
 
-    //Ensure that a Money amount of zero can be correctly multiplied.
+    /**
+    *Ensure that a Money amount of zero can be correctly multiplied.
+    */
     public void testMultiplyNoMoney() {
         Money money1 = new Money(0,0,0);
         Money money2 = money1.multiply(5);
         assertEquals("$0.00", money2.toString());
     }
 
-    //Ensure that a Money amounts are correctly rounded to the nearest hundredth.
+    /**
+    *Ensure that a Money amounts are correctly rounded to the nearest hundredth.
+    */
     public void testMultiplyRoundingErrorCheck() {
         Money money1 = new Money(10,0,1);
         Money money2 = new Money(-10,0,1);
@@ -628,7 +715,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$16.0002", money8.toString());
     }
 
-    //Ensure that a negative Money amount can be multiplied correctly.
+    /**
+    *Ensure that a negative Money amount can be multiplied correctly.
+    */
     public void testMultiplyNegativeMoney() {
         Money money1 = new Money(-10,50,10);
         Money money2 = money1.multiply(-5);
@@ -641,7 +730,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$5.2505", money5.toString());
     }
 
-    //Ensure that a multiplication by a very large number does not introduce rounding errors.
+    /**
+    *Ensure that a multiplication by a very large number does not introduce rounding errors.
+    */
     public void testMultiplyByLargeAmount() {
         Money money1 = new Money(1,10,10);
         Money money2 = money1.multiply(100000);
@@ -650,7 +741,9 @@ public class TestMoney extends TestCase {
         assertEquals("-$110100.00", money3.toString());
     }
 
-    //Ensure that a multiplication by a very small number does not introduce rounding errors.
+    /**
+    *Ensure that a multiplication by a very small number does not introduce rounding errors.
+    */
     public void testMultiplyBySmallAmount() {
         Money money1 = new Money(10000,0,0);
         Money money2 = money1.multiply(0.0000001);
